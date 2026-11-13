@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="14" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.monedero.controlador.cliente.PuntosController">
+    <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+    <Label text="Puntos y canje" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <HBox spacing="20">
+        <VBox spacing="5" style="-fx-background-color: #ecf0f1; -fx-padding: 15;" prefWidth="170">
+            <Label text="Puntos disponibles"/>
+            <Label fx:id="lblPuntos" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+        </VBox>
+        <VBox spacing="5" style="-fx-background-color: #ecf0f1; -fx-padding: 15;" prefWidth="170">
+            <Label text="Rango"/>
+            <Label fx:id="lblRango" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+        </VBox>
+    </HBox>
+    <Label fx:id="lblSiguiente"/>
+    <ProgressBar fx:id="barra" prefWidth="360"/>
+
+    <Label text="Canjear beneficios" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+    <HBox spacing="10">
+        <Label text="100 pts: 10% menos comisión en transferencias" prefWidth="360"/>
+        <Button fx:id="btn100" text="Canjear" onAction="#canjear"/>
+    </HBox>
+    <HBox spacing="10">
+        <Label text="500 pts: un mes sin cargos por retiros" prefWidth="360"/>
+        <Button fx:id="btn500" text="Canjear" onAction="#canjear"/>
+    </HBox>
+    <HBox spacing="10">
+        <Label text="1000 pts: bono de 50 unidades de saldo" prefWidth="360"/>
+        <Button fx:id="btn1000" text="Canjear" onAction="#canjear"/>
+    </HBox>
+    <Label fx:id="lblMensaje"/>
+
+    <Label text="Historial de puntos" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+    <ListView fx:id="listaMovimientos" prefHeight="150"/>
+</VBox>

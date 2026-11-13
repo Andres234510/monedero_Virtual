@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="12" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.monedero.controlador.cliente.ReportesController">
+    <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+    <Label text="Reportes y patrones de gasto" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <HBox spacing="10">
+        <ComboBox fx:id="cmbReporte" promptText="Tipo de reporte" prefWidth="260"/>
+        <Button text="Generar" onAction="#generar"/>
+    </HBox>
+    <Label fx:id="lblTitulo" style="-fx-font-weight: bold;"/>
+    <TableView fx:id="tabla" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colConcepto" text="Concepto" prefWidth="220"/>
+            <TableColumn fx:id="colValor" text="Valor" prefWidth="140"/>
+            <TableColumn fx:id="colDetalle" text="Detalle" prefWidth="200"/>
+        </columns>
+    </TableView>
+    <Label text="Relaciones (grafo dirigido)" style="-fx-font-weight: bold;"/>
+    <ListView fx:id="listaRelaciones" prefHeight="110"/>
+    <Label fx:id="lblMensaje"/>
+</VBox>

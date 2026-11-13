@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="12" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.monedero.controlador.admin.AdminRangosController">
+    <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+    <Label text="Rangos de clientes (mayor a menor puntaje)" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <TableView fx:id="tabla" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colPuesto" text="#" prefWidth="50"/>
+            <TableColumn fx:id="colNombre" text="Cliente" prefWidth="180"/>
+            <TableColumn fx:id="colPuntos" text="Puntos" prefWidth="90"/>
+            <TableColumn fx:id="colRango" text="Rango" prefWidth="100"/>
+        </columns>
+    </TableView>
+</VBox>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="12" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.monedero.controlador.cliente.MonederosController">
+    <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+    <Label text="Mis monederos" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <TableView fx:id="tabla" prefHeight="150">
+        <columns>
+            <TableColumn fx:id="colNombre" text="Monedero" prefWidth="180"/>
+            <TableColumn fx:id="colSaldo" text="Saldo" prefWidth="140"/>
+        </columns>
+    </TableView>
+    <HBox spacing="10">
+        <TextField fx:id="txtNuevo" promptText="Nombre del nuevo monedero"/>
+        <Button text="Crear" onAction="#crear"/>
+    </HBox>
+
+    <Label text="Mover dinero entre monederos" style="-fx-font-size: 16px; -fx-font-weight: bold;"/>
+    <HBox spacing="10">
+        <ComboBox fx:id="cmbOrigen" promptText="Origen"/>
+        <ComboBox fx:id="cmbDestino" promptText="Destino"/>
+        <TextField fx:id="txtMonto" promptText="Monto" prefWidth="100"/>
+        <Button text="Mover" onAction="#mover"/>
+    </HBox>
+    <Label fx:id="lblMensaje"/>
+
+    <Label text="Movimientos entre monederos (grafo dirigido)" style="-fx-font-weight: bold;"/>
+    <ListView fx:id="listaMovimientos" prefHeight="130"/>
+</VBox>

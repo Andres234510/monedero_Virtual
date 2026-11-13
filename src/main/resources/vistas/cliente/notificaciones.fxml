@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="12" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.monedero.controlador.cliente.NotificacionesController">
+    <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+    <Label text="Notificaciones" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <HBox spacing="10">
+        <Button text="Anterior" onAction="#anterior"/>
+        <Button text="Siguiente" onAction="#siguiente"/>
+        <Label fx:id="lblPosicion"/>
+    </HBox>
+    <Label fx:id="lblActual" wrapText="true" prefWidth="420"
+           style="-fx-background-color: #ecf0f1; -fx-padding: 15; -fx-font-size: 15px;"/>
+    <HBox spacing="10">
+        <Button text="Marcar como leída" onAction="#marcarLeida"/>
+        <Button text="Simular saldo bajo" onAction="#simularSaldoBajo"/>
+    </HBox>
+    <Label text="Todas" style="-fx-font-weight: bold;"/>
+    <ListView fx:id="lista" VBox.vgrow="ALWAYS"/>
+</VBox>

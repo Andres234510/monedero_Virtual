@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane fx:id="raiz" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="co.edu.uniquindio.monedero.controlador.cliente.DashboardController">
+    <left>
+        <VBox spacing="8" style="-fx-background-color: #2c3e50;" prefWidth="180">
+            <padding><Insets top="20" right="12" bottom="20" left="12"/></padding>
+            <Label text="Monedero" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+            <Button text="Inicio" maxWidth="Infinity" onAction="#abrir"/>
+            <Button text="Transacciones" maxWidth="Infinity" onAction="#abrir"/>
+            <Button text="Historial" maxWidth="Infinity" onAction="#abrir"/>
+            <Button text="Puntos y canje" maxWidth="Infinity" onAction="#abrir"/>
+            <Button text="Programadas" maxWidth="Infinity" onAction="#abrir"/>
+            <Button text="Notificaciones" maxWidth="Infinity" onAction="#abrir"/>
+            <Button text="Monederos" maxWidth="Infinity" onAction="#abrir"/>
+            <Button text="Reportes" maxWidth="Infinity" onAction="#abrir"/>
+            <Button text="Cerrar sesión" maxWidth="Infinity" onAction="#cerrarSesion"/>
+        </VBox>
+    </left>
+    <center>
+        <VBox spacing="20">
+            <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+            <Label fx:id="lblBienvenida" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+            <HBox spacing="20">
+                <VBox spacing="5" style="-fx-background-color: #ecf0f1; -fx-padding: 15;" prefWidth="170">
+                    <Label text="Saldo"/>
+                    <Label fx:id="lblSaldo" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+                </VBox>
+                <VBox spacing="5" style="-fx-background-color: #ecf0f1; -fx-padding: 15;" prefWidth="170">
+                    <Label text="Puntos"/>
+                    <Label fx:id="lblPuntos" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+                </VBox>
+                <VBox spacing="5" style="-fx-background-color: #ecf0f1; -fx-padding: 15;" prefWidth="170">
+                    <Label text="Rango"/>
+                    <Label fx:id="lblRango" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+                </VBox>
+            </HBox>
+            <Label fx:id="lblEstado"/>
+        </VBox>
+    </center>
+</BorderPane>

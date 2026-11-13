@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="12" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.monedero.controlador.admin.AdminProcesosController">
+    <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+    <Label text="Procesos del sistema" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <HBox spacing="10">
+        <Button text="Procesar programadas vencidas" onAction="#procesar"/>
+        <Button text="Verificar integridad" onAction="#verificar"/>
+    </HBox>
+    <Label text="Registro" style="-fx-font-weight: bold;"/>
+    <ListView fx:id="log" VBox.vgrow="ALWAYS"/>
+</VBox>

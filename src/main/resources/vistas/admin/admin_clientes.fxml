@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="12" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.monedero.controlador.admin.AdminClientesController">
+    <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+    <Label text="Gestión de clientes" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <HBox spacing="10">
+        <TextField fx:id="txtNombre" promptText="Nombre"/>
+        <TextField fx:id="txtDocumento" promptText="Documento"/>
+        <PasswordField fx:id="txtClave" promptText="Clave"/>
+        <Button text="Crear cliente" onAction="#crear"/>
+    </HBox>
+    <Label fx:id="lblMensaje"/>
+    <TableView fx:id="tabla" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colNombre" text="Nombre" prefWidth="180"/>
+            <TableColumn fx:id="colDocumento" text="Documento" prefWidth="130"/>
+            <TableColumn fx:id="colEstado" text="Estado" prefWidth="100"/>
+        </columns>
+    </TableView>
+    <Button text="Bloquear / Desbloquear seleccionado" onAction="#alternarEstado"/>
+</VBox>

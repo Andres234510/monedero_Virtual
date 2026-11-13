@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox alignment="CENTER" spacing="12" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.monedero.controlador.LoginController">
+    <padding><Insets top="30" right="40" bottom="30" left="40"/></padding>
+    <Label text="Monedero Virtual" style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+    <TextField fx:id="txtUsuario" promptText="Usuario"/>
+    <PasswordField fx:id="txtClave" promptText="Contraseña"/>
+    <Button text="Ingresar" onAction="#iniciarSesion" maxWidth="Infinity"/>
+    <Label fx:id="lblMensaje"/>
+</VBox>

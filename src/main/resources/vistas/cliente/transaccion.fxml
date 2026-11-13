@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="12" maxWidth="360" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.monedero.controlador.cliente.TransaccionController">
+    <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+    <Label text="Nueva transacción" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <ComboBox fx:id="cmbTipo" promptText="Tipo" maxWidth="Infinity"/>
+    <TextField fx:id="txtMonto" promptText="Monto"/>
+    <TextField fx:id="txtDestino" promptText="Cuenta destino" disable="true"/>
+    <Label fx:id="lblPuntos"/>
+    <Button text="Ejecutar" onAction="#ejecutar" maxWidth="Infinity"/>
+    <Label fx:id="lblMensaje"/>
+</VBox>

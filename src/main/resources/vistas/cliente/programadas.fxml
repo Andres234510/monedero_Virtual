@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="12" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.monedero.controlador.cliente.ProgramadasController">
+    <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+    <Label text="Transacciones programadas" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <HBox spacing="10">
+        <ComboBox fx:id="cmbTipo" promptText="Tipo"/>
+        <TextField fx:id="txtMonto" promptText="Monto" prefWidth="100"/>
+        <TextField fx:id="txtDestino" promptText="Cuenta destino" prefWidth="120" disable="true"/>
+    </HBox>
+    <HBox spacing="10">
+        <DatePicker fx:id="dpFecha" promptText="Fecha de ejecución"/>
+        <ComboBox fx:id="cmbFrecuencia" promptText="Frecuencia"/>
+        <Button text="Programar" onAction="#programar"/>
+    </HBox>
+    <Label fx:id="lblMensaje"/>
+    <Label text="Próximas ejecuciones (ordenadas por fecha)" style="-fx-font-weight: bold;"/>
+    <TableView fx:id="tabla" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colFecha" text="Fecha" prefWidth="110"/>
+            <TableColumn fx:id="colTipo" text="Tipo" prefWidth="110"/>
+            <TableColumn fx:id="colMonto" text="Monto" prefWidth="100"/>
+            <TableColumn fx:id="colFrecuencia" text="Frecuencia" prefWidth="100"/>
+        </columns>
+    </TableView>
+    <Button text="Cancelar seleccionada" onAction="#cancelar"/>
+</VBox>

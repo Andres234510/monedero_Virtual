@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox spacing="12" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="co.edu.uniquindio.monedero.controlador.cliente.HistorialController">
+    <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+    <Label text="Historial de transacciones" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+    <HBox spacing="10">
+        <ComboBox fx:id="cmbFiltro" promptText="Filtrar por tipo"/>
+        <Label fx:id="lblTotal"/>
+    </HBox>
+    <TableView fx:id="tabla" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn fx:id="colFecha" text="Fecha" prefWidth="140"/>
+            <TableColumn fx:id="colTipo" text="Tipo" prefWidth="110"/>
+            <TableColumn fx:id="colMonto" text="Monto" prefWidth="110"/>
+            <TableColumn fx:id="colPuntos" text="Puntos" prefWidth="80"/>
+        </columns>
+    </TableView>
+</VBox>
