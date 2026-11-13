@@ -1,9 +1,9 @@
 package main.java.co.edu.uniquindio.monedero.modelo;
 
-import co.edu.uniquindio.monedero.excepciones.SaldoInsuficienteException;
-import co.edu.uniquindio.monedero.excepciones.TransaccionInvalidaException;
-import co.edu.uniquindio.monedero.util.Constantes;
-import co.edu.uniquindio.monedero.util.GeneradorId;
+import main.java.co.edu.uniquindio.monedero.excepciones.SaldoInsuficienteException;
+import main.java.co.edu.uniquindio.monedero.excepciones.TransaccionInvalidaException;
+import main.java.co.edu.uniquindio.monedero.util.Constantes;
+import main.java.co.edu.uniquindio.monedero.util.GeneradorId;
 
 /** Un monedero dentro de la cuenta del cliente (ahorros, gastos diarios...). */
 public class Monedero {

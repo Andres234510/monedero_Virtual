@@ -1,10 +1,10 @@
 package main.java.co.edu.uniquindio.monedero.modelo;
 
-import co.edu.uniquindio.monedero.estructuras.listas.ListaEnlazada;
-import co.edu.uniquindio.monedero.estructuras.pilas.Pila;
-import co.edu.uniquindio.monedero.modelo.transaccion.Transaccion;
-import co.edu.uniquindio.monedero.util.Constantes;
-import co.edu.uniquindio.monedero.util.GeneradorId;
+import main.java.co.edu.uniquindio.monedero.estructuras.listas.ListaEnlazada;
+import main.java.co.edu.uniquindio.monedero.estructuras.pilas.Pila;
+import main.java.co.edu.uniquindio.monedero.modelo.transaccion.Transaccion;
+import main.java.co.edu.uniquindio.monedero.util.Constantes;
+import main.java.co.edu.uniquindio.monedero.util.GeneradorId;
 
 /**
  * Cuenta de un cliente: varios monederos, historial de transacciones

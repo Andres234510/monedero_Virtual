@@ -1,7 +1,7 @@
 package main.java.co.edu.uniquindio.monedero.modelo.puntos;
 
-import co.edu.uniquindio.monedero.estructuras.listas.ListaEnlazada;
-import co.edu.uniquindio.monedero.excepciones.PuntosInsuficientesException;
+import main.java.co.edu.uniquindio.monedero.estructuras.listas.ListaEnlazada;
+import main.java.co.edu.uniquindio.monedero.excepciones.PuntosInsuficientesException;
 
 /**
  * Registro de puntos de un cliente: historial + dos totales.

@@ -1,7 +1,7 @@
 package main.java.co.edu.uniquindio.monedero.modelo.transaccion;
 
-import co.edu.uniquindio.monedero.excepciones.TransaccionInvalidaException;
-import co.edu.uniquindio.monedero.util.GeneradorId;
+import main.java.co.edu.uniquindio.monedero.excepciones.TransaccionInvalidaException;
+import main.java.co.edu.uniquindio.monedero.util.GeneradorId;
 
 import java.time.LocalDate;
 

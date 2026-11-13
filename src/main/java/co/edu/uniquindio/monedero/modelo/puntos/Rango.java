@@ -1,6 +1,6 @@
 package main.java.co.edu.uniquindio.monedero.modelo.puntos;
 
-import co.edu.uniquindio.monedero.util.Constantes;
+import main.java.co.edu.uniquindio.monedero.util.Constantes;
 
 /** Rangos de cliente según puntos acumulados. */
 public enum Rango {
