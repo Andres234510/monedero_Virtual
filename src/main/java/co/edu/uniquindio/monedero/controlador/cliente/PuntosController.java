@@ -1,5 +1,10 @@
 package co.edu.uniquindio.monedero.controlador.cliente;
 
+import co.edu.uniquindio.monedero.modelo.Cliente;
+import co.edu.uniquindio.monedero.modelo.puntos.Beneficio;
+import co.edu.uniquindio.monedero.modelo.puntos.MovimientoPuntos;
+import co.edu.uniquindio.monedero.modelo.puntos.RegistroPuntos;
+import co.edu.uniquindio.monedero.util.Sesion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,58 +18,49 @@ public class PuntosController {
     @FXML private Button btn100, btn500, btn1000;
     @FXML private ListView<String> listaMovimientos;
 
-    private int puntos = 1200; // dato falso
-
     @FXML
     private void initialize() {
-        listaMovimientos.getItems().addAll(
-                "+5   Depósito $500.000",
-                "+24  Retiro $120.000",
-                "+9   Transferencia $300.000");
         refrescar();
     }
 
     private void refrescar() {
-        lblPuntos.setText(String.valueOf(puntos));
-        lblRango.setText(rango(puntos));
-        actualizarProgreso();
-        btn100.setDisable(puntos < 100);
-        btn500.setDisable(puntos < 500);
-        btn1000.setDisable(puntos < 1000);
-    }
+        Cliente c = Sesion.cliente();
+        RegistroPuntos r = c.getRegistroPuntos();
 
-    private String rango(int p) {
-        if (p <= 500) return "BRONCE";
-        if (p <= 1000) return "PLATA";
-        if (p <= 5000) return "ORO";
-        return "PLATINO";
-    }
+        lblPuntos.setText(String.valueOf(r.getDisponibles()));
+        lblRango.setText(c.getRango().toString());
 
-    private void actualizarProgreso() {
-        int[] limites = {501, 1001, 5001};
-        String[] nombres = {"PLATA", "ORO", "PLATINO"};
-        for (int i = 0; i < limites.length; i++) {
-            if (puntos < limites[i]) {
-                lblSiguiente.setText("Te faltan " + (limites[i] - puntos) + " puntos para " + nombres[i]);
-                barra.setProgress((double) puntos / limites[i]);
-                return;
-            }
+        long faltan = r.puntosParaSiguienteRango();
+        if (faltan == 0) {
+            lblSiguiente.setText("Rango máximo alcanzado");
+            barra.setProgress(1);
+        } else {
+            lblSiguiente.setText("Te faltan " + faltan + " puntos para el siguiente rango");
+            barra.setProgress((double) r.getAcumulados() / (r.getAcumulados() + faltan));
         }
-        lblSiguiente.setText("Rango máximo alcanzado");
-        barra.setProgress(1);
+
+        listaMovimientos.getItems().clear();
+        for (MovimientoPuntos m : r.getHistorial()) {
+            listaMovimientos.getItems().add(0, m.getPuntos() + "  " + m.getTipo());
+        }
+
+        btn100.setDisable(r.getDisponibles() < 100);
+        btn500.setDisable(r.getDisponibles() < 500);
+        btn1000.setDisable(r.getDisponibles() < 1000);
     }
 
     @FXML
     private void canjear(ActionEvent e) {
         Button b = (Button) e.getSource();
-        int costo = b == btn100 ? 100 : b == btn500 ? 500 : 1000;
-        if (puntos < costo) {
-            lblMensaje.setText("Puntos insuficientes");
-            return;
+        Beneficio beneficio = b == btn100 ? Beneficio.DESCUENTO_COMISION_TRANSFERENCIA
+                : b == btn500 ? Beneficio.MES_SIN_CARGOS_RETIRO
+                : Beneficio.BONO_SALDO;
+        try {
+            Sesion.servicios().puntos().canjear(Sesion.cliente().getId(), beneficio, null);
+            lblMensaje.setText("Canjeaste: " + beneficio.getDescripcion());
+        } catch (Exception ex) {
+            lblMensaje.setText(ex.getMessage());
         }
-        puntos -= costo; // luego: PuntosServicio.canjear(...)
-        listaMovimientos.getItems().add(0, "-" + costo + " Canje de beneficio");
-        lblMensaje.setText("Canje de " + costo + " puntos realizado");
         refrescar();
     }
 }

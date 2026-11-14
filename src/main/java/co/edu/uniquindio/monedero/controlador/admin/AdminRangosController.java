@@ -1,5 +1,8 @@
 package co.edu.uniquindio.monedero.controlador.admin;
 
+import co.edu.uniquindio.monedero.modelo.Cliente;
+import co.edu.uniquindio.monedero.util.Sesion;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -9,23 +12,16 @@ import javafx.scene.control.*;
 
 public class AdminRangosController {
 
-    // Clase temporal; luego los datos vienen de RangoServicio
     public static class Fila {
+        final SimpleIntegerProperty puesto;
         final SimpleStringProperty nombre, rango;
-        final SimpleIntegerProperty puntos;
-        final SimpleIntegerProperty puesto = new SimpleIntegerProperty();
+        final SimpleLongProperty puntos;
 
-        Fila(String nombre, int puntos) {
-            this.nombre = new SimpleStringProperty(nombre);
-            this.puntos = new SimpleIntegerProperty(puntos);
-            this.rango = new SimpleStringProperty(calcular(puntos));
-        }
-
-        static String calcular(int p) {
-            if (p <= 500) return "BRONCE";
-            if (p <= 1000) return "PLATA";
-            if (p <= 5000) return "ORO";
-            return "PLATINO";
+        Fila(int puesto, Cliente c) {
+            this.puesto = new SimpleIntegerProperty(puesto);
+            this.nombre = new SimpleStringProperty(c.getNombre());
+            this.puntos = new SimpleLongProperty(c.getRegistroPuntos().getAcumulados());
+            this.rango = new SimpleStringProperty(c.getRango().toString());
         }
     }
 
@@ -40,14 +36,13 @@ public class AdminRangosController {
         colPuntos.setCellValueFactory(c -> c.getValue().puntos);
         colRango.setCellValueFactory(c -> c.getValue().rango);
 
-        // Datos falsos. Luego: RangoServicio (ArbolAVL, recorrido inorden descendente)
-        ObservableList<Fila> datos = FXCollections.observableArrayList(
-                new Fila("Cliente Demo", 320),
-                new Fila("Ana Gómez", 1200),
-                new Fila("Luis Pérez", 5400),
-                new Fila("María Ruiz", 800));
-        datos.sort((a, b) -> Integer.compare(b.puntos.get(), a.puntos.get()));
-        for (int i = 0; i < datos.size(); i++) datos.get(i).puesto.set(i + 1);
+        ObservableList<Fila> datos = FXCollections.observableArrayList();
+        int pos = 1;
+        // Ranking del AVL de Andrés: mayor a menor puntaje
+        for (Cliente c : Sesion.servicios().rangos().ranking(
+                Sesion.servicios().rangos().totalClientes())) {
+            datos.add(new Fila(pos++, c));
+        }
         tabla.setItems(datos);
     }
 }

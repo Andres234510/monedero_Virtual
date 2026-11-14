@@ -1,9 +1,12 @@
 package co.edu.uniquindio.monedero.controlador.cliente;
 
+import co.edu.uniquindio.monedero.modelo.Notificacion;
+import co.edu.uniquindio.monedero.util.Sesion;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,39 +14,35 @@ public class NotificacionesController {
     @FXML private Label lblActual, lblPosicion;
     @FXML private ListView<String> lista;
 
-    // Luego: ListaCircular del equipo
-    private final List<String> notificaciones = new ArrayList<>();
-    private final List<Boolean> leidas = new ArrayList<>();
+    private final List<Notificacion> notificaciones = new ArrayList<>();
     private int actual = 0;
+    private static final DateTimeFormatter FORMATO = DateTimeFormatter.ofPattern("dd/MM HH:mm");
 
     @FXML
     private void initialize() {
-        agregar("Recordatorio: depósito programado en 3 días");
-        agregar("Alerta: tu saldo está por debajo de $100.000");
-        agregar("Subiste de rango: ahora eres PLATA");
+        // La más reciente primero
+        for (Notificacion n : Sesion.cliente().getNotificaciones()) {
+            notificaciones.add(0, n);
+        }
         mostrar();
     }
 
-    private void agregar(String texto) {
-        notificaciones.add(texto);
-        leidas.add(false);
+    private String texto(Notificacion n) {
+        return (n.isLeida() ? "✔ " : "● ") + n.getFecha().format(FORMATO) + "  " + n;
     }
 
     private void mostrar() {
         lista.getItems().clear();
-        for (int i = 0; i < notificaciones.size(); i++) {
-            lista.getItems().add((leidas.get(i) ? "✔ " : "● ") + notificaciones.get(i));
-        }
+        for (Notificacion n : notificaciones) lista.getItems().add(texto(n));
         if (notificaciones.isEmpty()) {
             lblActual.setText("Sin notificaciones");
             lblPosicion.setText("");
             return;
         }
-        lblActual.setText(notificaciones.get(actual));
+        lblActual.setText(notificaciones.get(actual).toString());
         lblPosicion.setText((actual + 1) + " de " + notificaciones.size());
     }
 
-    // Navegación circular: del último vuelve al primero
     @FXML
     private void siguiente() {
         if (notificaciones.isEmpty()) return;
@@ -61,14 +60,12 @@ public class NotificacionesController {
     @FXML
     private void marcarLeida() {
         if (notificaciones.isEmpty()) return;
-        leidas.set(actual, true);
+        notificaciones.get(actual).marcarLeida();
         mostrar();
     }
 
     @FXML
     private void simularSaldoBajo() {
-        agregar("Alerta: saldo bajo detectado");
-        actual = notificaciones.size() - 1;
-        mostrar();
+        // Ya no aplica: las alertas las genera NotificacionServicio
     }
 }

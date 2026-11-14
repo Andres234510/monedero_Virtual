@@ -1,5 +1,7 @@
 package co.edu.uniquindio.monedero.controlador.admin;
 
+import co.edu.uniquindio.monedero.modelo.Cliente;
+import co.edu.uniquindio.monedero.util.Sesion;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,7 +28,6 @@ public class AdminClientesController {
     @FXML private TableColumn<Fila, String> colNombre, colDocumento, colEstado;
 
     private final ObservableList<Fila> datos = FXCollections.observableArrayList();
-
     @FXML
     private void initialize() {
         colNombre.setCellValueFactory(c -> c.getValue().nombre);
@@ -34,27 +35,26 @@ public class AdminClientesController {
         colEstado.setCellValueFactory(c -> c.getValue().estado);
         tabla.setItems(datos);
 
-        // Datos falsos
-        datos.add(new Fila("Cliente Demo", "1001", "Activo"));
-        datos.add(new Fila("Ana Gómez", "1002", "Activo"));
-        datos.add(new Fila("Luis Pérez", "1005", "Bloqueado"));
+        for (Cliente c : Sesion.servicios().clientes().listar()) {
+            datos.add(new Fila(c.getNombre(), c.getId(), "Activo"));
+        }
     }
 
     @FXML
     private void crear() {
         String n = txtNombre.getText().trim();
         String d = txtDocumento.getText().trim();
-        if (n.isEmpty() || d.isEmpty() || txtClave.getText().isBlank()) {
-            lblMensaje.setText("Completa nombre, documento y clave");
+        String pin = txtClave.getText();
+        if (n.isEmpty() || d.isEmpty() || pin.isEmpty()) {
+            lblMensaje.setText("Completa nombre, documento y PIN");
             return;
         }
-        for (Fila f : datos) {
-            if (f.documento.get().equals(d)) {
-                lblMensaje.setText("Ya existe un cliente con ese documento");
-                return;
-            }
+        try {
+            Sesion.servicios().clientes().registrar(d, n, pin);
+        } catch (Exception ex) {
+            lblMensaje.setText(ex.getMessage());
+            return;
         }
-        // Luego: ClienteServicio.crearCliente(nombre, documento, clave)
         datos.add(new Fila(n, d, "Activo"));
         txtNombre.clear();
         txtDocumento.clear();

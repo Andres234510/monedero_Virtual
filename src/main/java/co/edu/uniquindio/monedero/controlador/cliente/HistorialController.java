@@ -1,7 +1,10 @@
 package co.edu.uniquindio.monedero.controlador.cliente;
 
+import co.edu.uniquindio.monedero.modelo.transaccion.TipoTransaccion;
+import co.edu.uniquindio.monedero.modelo.transaccion.Transaccion;
+import co.edu.uniquindio.monedero.util.Sesion;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,19 +17,17 @@ import javafx.scene.control.TableView;
 
 public class HistorialController {
 
-    // Clase temporal; luego se usa la Transaccion del modelo
     public static class Fila {
-        private final SimpleStringProperty fecha, tipo;
-        private final SimpleDoubleProperty monto;
-        private final SimpleIntegerProperty puntos;
+        final SimpleStringProperty fecha, tipo;
+        final SimpleDoubleProperty monto;
+        final SimpleLongProperty puntos;
 
-        public Fila(String fecha, String tipo, double monto, int puntos) {
+        Fila(String fecha, String tipo, double monto, long puntos) {
             this.fecha = new SimpleStringProperty(fecha);
             this.tipo = new SimpleStringProperty(tipo);
             this.monto = new SimpleDoubleProperty(monto);
-            this.puntos = new SimpleIntegerProperty(puntos);
+            this.puntos = new SimpleLongProperty(puntos);
         }
-        public String getTipo() { return tipo.get(); }
     }
 
     @FXML private TableView<Fila> tabla;
@@ -44,25 +45,22 @@ public class HistorialController {
         colMonto.setCellValueFactory(c -> c.getValue().monto);
         colPuntos.setCellValueFactory(c -> c.getValue().puntos);
 
-        // Datos falsos
-        ObservableList<Fila> datos = FXCollections.observableArrayList(
-                new Fila("2026-11-01", "Depósito", 500000, 5),
-                new Fila("2026-11-03", "Retiro", 120000, 24),
-                new Fila("2026-11-07", "Transferencia", 300000, 9),
-                new Fila("2026-11-10", "Depósito", 870000, 8));
+        ObservableList<Fila> datos = FXCollections.observableArrayList();
+        for (Transaccion t : Sesion.cliente().getCuenta().getHistorial()) {
+            String tipo = t.getTipo().toString() + (t.estaRevertida() ? " (revertida)" : "");
+            datos.add(0, new Fila(t.getFecha().toString().replace('T', ' ').substring(0, 16),
+                    tipo, t.getMonto(), t.getPuntosGenerados()));
+        }
         filtrada = new FilteredList<>(datos, f -> true);
         tabla.setItems(filtrada);
 
-        cmbFiltro.getItems().addAll("Todos", "Depósito", "Retiro", "Transferencia");
+        cmbFiltro.getItems().add("Todos");
+        for (TipoTransaccion tt : TipoTransaccion.values()) cmbFiltro.getItems().add(tt.toString());
         cmbFiltro.setValue("Todos");
         cmbFiltro.valueProperty().addListener((o, a, n) -> {
-            filtrada.setPredicate(f -> "Todos".equals(n) || f.getTipo().equals(n));
-            actualizarTotal();
+            filtrada.setPredicate(f -> "Todos".equals(n) || f.tipo.get().startsWith(n));
+            lblTotal.setText(filtrada.size() + " transacciones");
         });
-        actualizarTotal();
-    }
-
-    private void actualizarTotal() {
         lblTotal.setText(filtrada.size() + " transacciones");
     }
 }

@@ -1,5 +1,8 @@
 package co.edu.uniquindio.monedero.controlador.cliente;
 
+import co.edu.uniquindio.monedero.modelo.transaccion.Frecuencia;
+import co.edu.uniquindio.monedero.modelo.transaccion.TransaccionProgramada;
+import co.edu.uniquindio.monedero.util.Sesion;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -11,18 +14,19 @@ import java.time.LocalDate;
 
 public class ProgramadasController {
 
-    // Clase temporal; luego se usa TransaccionProgramada del modelo
     public static class Fila {
+        final String id;
         final LocalDate fecha;
         final SimpleStringProperty fechaTxt, tipo, frecuencia;
         final SimpleDoubleProperty monto;
 
-        Fila(LocalDate fecha, String tipo, double monto, String frecuencia) {
-            this.fecha = fecha;
+        Fila(TransaccionProgramada p) {
+            this.id = p.getId();
+            this.fecha = p.getProximaEjecucion();
             this.fechaTxt = new SimpleStringProperty(fecha.toString());
-            this.tipo = new SimpleStringProperty(tipo);
-            this.monto = new SimpleDoubleProperty(monto);
-            this.frecuencia = new SimpleStringProperty(frecuencia);
+            this.tipo = new SimpleStringProperty(p.getTipo().toString());
+            this.monto = new SimpleDoubleProperty(p.getMonto());
+            this.frecuencia = new SimpleStringProperty(p.getFrecuencia().toString());
         }
     }
 
@@ -39,8 +43,8 @@ public class ProgramadasController {
     @FXML
     private void initialize() {
         cmbTipo.getItems().addAll("Depósito", "Transferencia");
-        cmbFrecuencia.getItems().addAll("Una vez", "Semanal", "Mensual");
-        cmbFrecuencia.setValue("Una vez");
+        for (Frecuencia f : Frecuencia.values()) cmbFrecuencia.getItems().add(f.name());
+        cmbFrecuencia.getSelectionModel().selectFirst();
         cmbTipo.valueProperty().addListener((o, a, n) ->
                 txtDestino.setDisable(!"Transferencia".equals(n)));
 
@@ -49,15 +53,14 @@ public class ProgramadasController {
         colMonto.setCellValueFactory(c -> c.getValue().monto);
         colFrecuencia.setCellValueFactory(c -> c.getValue().frecuencia);
         tabla.setItems(datos);
-
-        // Datos falsos
-        datos.add(new Fila(LocalDate.now().plusDays(3), "Depósito", 200000, "Mensual"));
-        datos.add(new Fila(LocalDate.now().plusDays(10), "Transferencia", 80000, "Semanal"));
-        ordenar();
+        recargar();
     }
 
-    // Luego: ColaPrioridad del equipo
-    private void ordenar() {
+    private void recargar() {
+        datos.clear();
+        for (TransaccionProgramada p : Sesion.servicios().programador().listarActivas(Sesion.cliente().getId())) {
+            datos.add(new Fila(p));
+        }
         datos.sort((a, b) -> a.fecha.compareTo(b.fecha));
     }
 
@@ -77,12 +80,26 @@ public class ProgramadasController {
             lblMensaje.setText("La fecha no puede estar en el pasado");
             return;
         }
-        if ("Transferencia".equals(cmbTipo.getValue()) && txtDestino.getText().isBlank()) {
-            lblMensaje.setText("Falta la cuenta destino");
+        String id = Sesion.cliente().getId();
+        Frecuencia fr = Frecuencia.valueOf(cmbFrecuencia.getValue());
+        try {
+            if ("Transferencia".equals(cmbTipo.getValue())) {
+                String destino = txtDestino.getText().trim();
+                if (destino.isEmpty()) {
+                    lblMensaje.setText("Falta el documento del destinatario");
+                    return;
+                }
+                Sesion.servicios().programador()
+                        .programarTransferencia(id, null, destino, null, monto, fr, dpFecha.getValue());
+            } else {
+                Sesion.servicios().programador()
+                        .programarDeposito(id, null, monto, fr, dpFecha.getValue());
+            }
+        } catch (Exception ex) {
+            lblMensaje.setText(ex.getMessage());
             return;
         }
-        datos.add(new Fila(dpFecha.getValue(), cmbTipo.getValue(), monto, cmbFrecuencia.getValue()));
-        ordenar();
+        recargar();
         lblMensaje.setText("Transacción programada");
         txtMonto.clear();
         txtDestino.clear();
@@ -96,7 +113,13 @@ public class ProgramadasController {
             lblMensaje.setText("Selecciona una fila");
             return;
         }
-        datos.remove(f);
+        try {
+            Sesion.servicios().programador().cancelar(f.id);
+        } catch (Exception ex) {
+            lblMensaje.setText(ex.getMessage());
+            return;
+        }
+        recargar();
         lblMensaje.setText("Programación cancelada");
     }
 }

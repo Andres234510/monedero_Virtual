@@ -1,5 +1,7 @@
 package co.edu.uniquindio.monedero.controlador.cliente;
 
+import co.edu.uniquindio.monedero.modelo.Cliente;
+import co.edu.uniquindio.monedero.util.Sesion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,17 +21,16 @@ public class DashboardController {
     @FXML
     private void initialize() {
         inicio = raiz.getCenter();
-        lblBienvenida.setText("Hola, Cliente Demo");
-        lblSaldo.setText("$ 1.250.000");
-        lblPuntos.setText("320");
-        lblRango.setText(calcularRango(320));
+        refrescarInicio();
     }
 
-    private String calcularRango(int puntos) {
-        if (puntos <= 500) return "BRONCE";
-        if (puntos <= 1000) return "PLATA";
-        if (puntos <= 5000) return "ORO";
-        return "PLATINO";
+    private void refrescarInicio() {
+        Cliente c = Sesion.cliente();
+        lblBienvenida.setText("Hola, " + c.getNombre());
+        lblSaldo.setText(String.format("$ %,.2f", c.getCuenta().saldoTotal()));
+        lblPuntos.setText(String.valueOf(c.getRegistroPuntos().getDisponibles()));
+        lblRango.setText(c.getRango().toString());
+        lblEstado.setText("");
     }
 
     @FXML
@@ -46,6 +47,7 @@ public class DashboardController {
             default -> "";
         };
         if (archivo.isEmpty()) {
+            refrescarInicio();
             raiz.setCenter(inicio);
             return;
         }
@@ -60,6 +62,7 @@ public class DashboardController {
 
     @FXML
     private void cerrarSesion(ActionEvent e) throws Exception {
+        Sesion.cerrar();
         Parent root = FXMLLoader.load(getClass().getResource("/vistas/login.fxml"));
         Scene scene = new Scene(root, 400, 300);
         scene.getStylesheets().add(getClass().getResource("/estilos/estilos.css").toExternalForm());

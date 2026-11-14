@@ -24,11 +24,11 @@
             <HBox spacing="20">
                 <VBox spacing="5" style="-fx-background-color: #ecf0f1; -fx-padding: 15;" prefWidth="170">
                     <Label text="Clientes"/>
-                    <Label text="3" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+                    <Label fx:id="lblClientes" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
                 </VBox>
                 <VBox spacing="5" style="-fx-background-color: #ecf0f1; -fx-padding: 15;" prefWidth="170">
                     <Label text="Programadas pendientes"/>
-                    <Label text="2" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+                    <Label fx:id="lblPendientes" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
                 </VBox>
             </HBox>
         </VBox>

@@ -1,5 +1,8 @@
 package co.edu.uniquindio.monedero.controlador.cliente;
 
+import co.edu.uniquindio.monedero.modelo.CategoriaGasto;
+import co.edu.uniquindio.monedero.modelo.Cliente;
+import co.edu.uniquindio.monedero.util.Sesion;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -40,23 +43,41 @@ public class TransaccionController {
             case "Retiro" -> 2;
             default -> 3;
         };
-        lblPuntos.setText("Ganarás " + ((int) (monto / 100) * factor) + " puntos");
+        lblPuntos.setText("Puntos base: " + ((int) (monto / 100) * factor) + " (más bono por rango)");
     }
 
     @FXML
     private void ejecutar() {
         double monto = leerMonto();
-        if (cmbTipo.getValue() == null || monto <= 0) {
+        String tipo = cmbTipo.getValue();
+        if (tipo == null || monto <= 0) {
             lblMensaje.setText("Elige tipo y un monto válido");
             return;
         }
-        if ("Transferencia".equals(cmbTipo.getValue()) && txtDestino.getText().isBlank()) {
-            lblMensaje.setText("Falta la cuenta destino");
-            return;
+        Cliente c = Sesion.cliente();
+        CategoriaGasto cat = CategoriaGasto.OTROS;
+        try {
+            switch (tipo) {
+                case "Depósito" -> Sesion.servicios().transacciones()
+                        .depositar(c.getId(), null, monto, "Depósito");
+                case "Retiro" -> Sesion.servicios().transacciones()
+                        .retirar(c.getId(), null, monto, cat, "Retiro");
+                default -> {
+                    String destino = txtDestino.getText().trim();
+                    if (destino.isEmpty()) {
+                        lblMensaje.setText("Falta el documento del destinatario");
+                        return;
+                    }
+                    Sesion.servicios().transacciones()
+                            .transferir(c.getId(), null, destino, null, monto, cat, "Transferencia");
+                }
+            }
+            lblMensaje.setText(tipo + " realizada. Saldo: "
+                    + String.format("$ %,.2f", c.getCuenta().saldoTotal()));
+            txtMonto.clear();
+            txtDestino.clear();
+        } catch (Exception ex) {
+            lblMensaje.setText(ex.getMessage());
         }
-        // Aquí irá TransaccionServicio
-        lblMensaje.setText(cmbTipo.getValue() + " de $" + monto + " registrada (simulado)");
-        txtMonto.clear();
-        txtDestino.clear();
     }
 }

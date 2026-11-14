@@ -16,7 +16,6 @@
            style="-fx-background-color: #ecf0f1; -fx-padding: 15; -fx-font-size: 15px;"/>
     <HBox spacing="10">
         <Button text="Marcar como leída" onAction="#marcarLeida"/>
-        <Button text="Simular saldo bajo" onAction="#simularSaldoBajo"/>
     </HBox>
     <Label text="Todas" style="-fx-font-weight: bold;"/>
     <ListView fx:id="lista" VBox.vgrow="ALWAYS"/>
