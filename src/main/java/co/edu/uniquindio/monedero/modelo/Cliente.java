@@ -1,12 +1,12 @@
-package main.java.co.edu.uniquindio.monedero.modelo;
+package co.edu.uniquindio.monedero.modelo;
 
-import main.java.co.edu.uniquindio.monedero.estructuras.listas.ListaCircular;
-import main.java.co.edu.uniquindio.monedero.estructuras.listas.ListaEnlazada;
-import main.java.co.edu.uniquindio.monedero.modelo.puntos.Beneficio;
-import main.java.co.edu.uniquindio.monedero.modelo.puntos.BeneficioActivo;
-import main.java.co.edu.uniquindio.monedero.modelo.puntos.Rango;
-import main.java.co.edu.uniquindio.monedero.modelo.puntos.RegistroPuntos;
-import main.java.co.edu.uniquindio.monedero.util.Constantes;
+import co.edu.uniquindio.monedero.estructuras.listas.ListaCircular;
+import co.edu.uniquindio.monedero.estructuras.listas.ListaEnlazada;
+import co.edu.uniquindio.monedero.modelo.puntos.Beneficio;
+import co.edu.uniquindio.monedero.modelo.puntos.BeneficioActivo;
+import co.edu.uniquindio.monedero.modelo.puntos.Rango;
+import co.edu.uniquindio.monedero.modelo.puntos.RegistroPuntos;
+import co.edu.uniquindio.monedero.util.Constantes;
 
 import java.time.LocalDate;
 

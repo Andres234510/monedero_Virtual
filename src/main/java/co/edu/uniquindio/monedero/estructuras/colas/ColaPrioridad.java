@@ -1,4 +1,4 @@
-package main.java.co.edu.uniquindio.monedero.estructuras.colas;
+package co.edu.uniquindio.monedero.estructuras.colas;
 
 import java.util.NoSuchElementException;
 

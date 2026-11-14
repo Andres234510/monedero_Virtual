@@ -1,6 +1,6 @@
-package main.java.co.edu.uniquindio.monedero.estructuras.arboles;
+package co.edu.uniquindio.monedero.estructuras.arboles;
 
-import main.java.co.edu.uniquindio.monedero.estructuras.listas.ListaEnlazada;
+import co.edu.uniquindio.monedero.estructuras.listas.ListaEnlazada;
 
 import java.util.NoSuchElementException;
 

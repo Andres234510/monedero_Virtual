@@ -1,4 +1,4 @@
-package main.java.co.edu.uniquindio.monedero.modelo.puntos;
+package co.edu.uniquindio.monedero.modelo.puntos;
 
 /**
  * Clave compuesta (puntos, idCliente) para árboles que ordenan clientes por

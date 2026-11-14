@@ -1,6 +1,6 @@
-package main.java.co.edu.uniquindio.monedero.modelo.transaccion;
+package co.edu.uniquindio.monedero.modelo.transaccion;
 
-import main.java.co.edu.uniquindio.monedero.modelo.CategoriaGasto;
+import co.edu.uniquindio.monedero.modelo.CategoriaGasto;
 
 /**
  * Transferencia entre monederos. Si origen y destino son de la misma cuenta es

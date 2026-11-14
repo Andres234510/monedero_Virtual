@@ -1,6 +1,6 @@
-package main.java.co.edu.uniquindio.monedero.estructuras.grafos;
+package co.edu.uniquindio.monedero.estructuras.grafos;
 
-import main.java.co.edu.uniquindio.monedero.estructuras.listas.ListaEnlazada;
+import co.edu.uniquindio.monedero.estructuras.listas.ListaEnlazada;
 
 /** Vértice con su lista de adyacencia (aristas salientes). */
 public class Vertice<T> {

@@ -1,4 +1,4 @@
-package main.java.co.edu.uniquindio.monedero.estructuras.hash;
+package co.edu.uniquindio.monedero.estructuras.hash;
 
 /** Entrada de un "bucket" (encadenamiento separado). */
 public class EntradaHash<K, V> {

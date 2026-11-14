@@ -1,6 +1,6 @@
-package test.java.co.edu.uniquindio.monedero.estructuras;
+package co.edu.uniquindio.monedero.estructuras;
 
-import main.java.co.edu.uniquindio.monedero.estructuras.arboles.ArbolAVL;
+import co.edu.uniquindio.monedero.estructuras.arboles.ArbolAVL;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,4 +1,4 @@
-package main.java.co.edu.uniquindio.monedero.estructuras.listas;
+package co.edu.uniquindio.monedero.estructuras.listas;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

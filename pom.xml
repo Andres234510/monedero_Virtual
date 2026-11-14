@@ -22,8 +22,13 @@
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>21.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>${javafx.version}</version>
+            <version>21.0.5</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>

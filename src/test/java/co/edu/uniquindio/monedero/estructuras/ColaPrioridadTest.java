@@ -1,6 +1,6 @@
-package test.java.co.edu.uniquindio.monedero.estructuras;
+package co.edu.uniquindio.monedero.estructuras;
 
-import main.java.co.edu.uniquindio.monedero.estructuras.colas.ColaPrioridad;
+import co.edu.uniquindio.monedero.estructuras.colas.ColaPrioridad;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

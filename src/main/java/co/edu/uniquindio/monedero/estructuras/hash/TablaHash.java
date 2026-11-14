@@ -1,6 +1,6 @@
-package main.java.co.edu.uniquindio.monedero.estructuras.hash;
+package co.edu.uniquindio.monedero.estructuras.hash;
 
-import main.java.co.edu.uniquindio.monedero.estructuras.listas.ListaEnlazada;
+import co.edu.uniquindio.monedero.estructuras.listas.ListaEnlazada;
 
 /**
  * Tabla hash con encadenamiento separado y redimensionamiento dinámico.

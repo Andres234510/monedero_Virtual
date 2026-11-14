@@ -1,4 +1,4 @@
-package main.java.co.edu.uniquindio.monedero.estructuras.listas;
+package co.edu.uniquindio.monedero.estructuras.listas;
 
 /** Nodo simple reutilizado por listas, pilas y colas. */
 public class Nodo<T> {

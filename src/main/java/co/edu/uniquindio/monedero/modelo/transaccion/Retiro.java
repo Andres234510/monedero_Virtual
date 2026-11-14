@@ -1,6 +1,6 @@
-package main.java.co.edu.uniquindio.monedero.modelo.transaccion;
+package co.edu.uniquindio.monedero.modelo.transaccion;
 
-import main.java.co.edu.uniquindio.monedero.modelo.CategoriaGasto;
+import co.edu.uniquindio.monedero.modelo.CategoriaGasto;
 
 /** Un retiro es también un "gasto": lleva categoría para el análisis de patrones. */
 public class Retiro extends Transaccion {

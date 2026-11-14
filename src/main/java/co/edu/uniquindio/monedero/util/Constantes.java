@@ -1,4 +1,4 @@
-package main.java.co.edu.uniquindio.monedero.util;
+package co.edu.uniquindio.monedero.util;
 
 /**
  * Parámetros del sistema en un solo lugar. Los marcados con (*) NO vienen en

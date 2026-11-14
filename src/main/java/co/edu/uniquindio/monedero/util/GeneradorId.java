@@ -1,6 +1,6 @@
-package main.java.co.edu.uniquindio.monedero.util;
+package co.edu.uniquindio.monedero.util;
 
-import main.java.co.edu.uniquindio.monedero.estructuras.hash.TablaHash;
+import co.edu.uniquindio.monedero.estructuras.hash.TablaHash;
 
 /** Genera ids legibles por prefijo: TX-000001, MON-000003, ... */
 public final class GeneradorId {

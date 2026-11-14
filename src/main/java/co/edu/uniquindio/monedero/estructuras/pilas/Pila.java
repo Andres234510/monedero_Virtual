@@ -1,6 +1,6 @@
-package main.java.co.edu.uniquindio.monedero.estructuras.pilas;
+package co.edu.uniquindio.monedero.estructuras.pilas;
 
-import main.java.co.edu.uniquindio.monedero.estructuras.listas.Nodo;
+import co.edu.uniquindio.monedero.estructuras.listas.Nodo;
 
 import java.util.NoSuchElementException;
 

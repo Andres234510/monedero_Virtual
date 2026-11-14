@@ -1,7 +1,7 @@
-package main.java.co.edu.uniquindio.monedero.algoritmos;
+package co.edu.uniquindio.monedero.algoritmos;
 
-import main.java.co.edu.uniquindio.monedero.estructuras.arboles.ArbolAVL;
-import main.java.co.edu.uniquindio.monedero.modelo.puntos.Rango;
+import co.edu.uniquindio.monedero.estructuras.arboles.ArbolAVL;
+import co.edu.uniquindio.monedero.modelo.puntos.Rango;
 
 /**
  * Clasifica puntos en rangos usando un árbol AVL de umbrales: cada rango se

@@ -1,10 +1,12 @@
-package main.java.co.edu.uniquindio.monedero.modelo;
+package co.edu.uniquindio.monedero.modelo;
 
-import main.java.co.edu.uniquindio.monedero.estructuras.listas.ListaEnlazada;
-import main.java.co.edu.uniquindio.monedero.estructuras.pilas.Pila;
-import main.java.co.edu.uniquindio.monedero.modelo.transaccion.Transaccion;
-import main.java.co.edu.uniquindio.monedero.util.Constantes;
-import main.java.co.edu.uniquindio.monedero.util.GeneradorId;
+import co.edu.uniquindio.monedero.estructuras.listas.ListaEnlazada;
+import co.edu.uniquindio.monedero.estructuras.pilas.Pila;
+import co.edu.uniquindio.monedero.modelo.transaccion.Deposito;
+import co.edu.uniquindio.monedero.modelo.transaccion.Transaccion;
+import co.edu.uniquindio.monedero.modelo.transaccion.Transferencia;
+import co.edu.uniquindio.monedero.util.Constantes;
+import co.edu.uniquindio.monedero.util.GeneradorId;
 
 /**
  * Cuenta de un cliente: varios monederos, historial de transacciones
@@ -55,4 +57,10 @@ public class Cuenta {
     public ListaEnlazada<Monedero> getMonederos() { return monederos; }
     public ListaEnlazada<Transaccion> getHistorial() { return historial; }
     public Pila<Transaccion> getReversibles() { return reversibles; }
+
+    public void registrarSoloHistorial(Deposito t) {
+    }
+
+    public void registrarSoloHistorial(Transferencia t) {
+    }
 }

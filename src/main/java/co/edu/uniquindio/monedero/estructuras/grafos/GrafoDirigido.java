@@ -1,9 +1,9 @@
-package main.java.co.edu.uniquindio.monedero.estructuras.grafos;
+package co.edu.uniquindio.monedero.estructuras.grafos;
 
-import main.java.co.edu.uniquindio.monedero.estructuras.colas.Cola;
-import main.java.co.edu.uniquindio.monedero.estructuras.hash.TablaHash;
-import main.java.co.edu.uniquindio.monedero.estructuras.listas.ListaEnlazada;
-import main.java.co.edu.uniquindio.monedero.estructuras.pilas.Pila;
+import co.edu.uniquindio.monedero.estructuras.colas.Cola;
+import co.edu.uniquindio.monedero.estructuras.hash.TablaHash;
+import co.edu.uniquindio.monedero.estructuras.listas.ListaEnlazada;
+import co.edu.uniquindio.monedero.estructuras.pilas.Pila;
 
 /**
  * Grafo dirigido y ponderado con listas de adyacencia. Los vértices se

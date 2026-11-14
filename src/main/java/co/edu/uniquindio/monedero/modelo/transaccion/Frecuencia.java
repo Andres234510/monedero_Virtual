@@ -1,4 +1,4 @@
-package main.java.co.edu.uniquindio.monedero.modelo.transaccion;
+package co.edu.uniquindio.monedero.modelo.transaccion;
 
 import java.time.LocalDate;
 

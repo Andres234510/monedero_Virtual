@@ -1,4 +1,4 @@
-package main.java.co.edu.uniquindio.monedero.estructuras.grafos;
+package co.edu.uniquindio.monedero.estructuras.grafos;
 
 /** Arista dirigida con peso (monto acumulado, frecuencia, etc.). */
 public class Arista<T> {

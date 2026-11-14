@@ -1,4 +1,4 @@
-package main.java.co.edu.uniquindio.monedero.estructuras.arboles;
+package co.edu.uniquindio.monedero.estructuras.arboles;
 
 /** Nodo de árbol binario clave-valor. 'altura' solo la usa el AVL. */
 public class NodoArbol<K, V> {

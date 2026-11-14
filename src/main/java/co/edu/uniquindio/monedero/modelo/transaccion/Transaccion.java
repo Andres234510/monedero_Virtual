@@ -1,8 +1,8 @@
-package main.java.co.edu.uniquindio.monedero.modelo.transaccion;
+package co.edu.uniquindio.monedero.modelo.transaccion;
 
-import main.java.co.edu.uniquindio.monedero.excepciones.TransaccionInvalidaException;
-import main.java.co.edu.uniquindio.monedero.modelo.CategoriaGasto;
-import main.java.co.edu.uniquindio.monedero.util.GeneradorId;
+import co.edu.uniquindio.monedero.excepciones.TransaccionInvalidaException;
+import co.edu.uniquindio.monedero.modelo.CategoriaGasto;
+import co.edu.uniquindio.monedero.util.GeneradorId;
 
 import java.time.LocalDateTime;
 

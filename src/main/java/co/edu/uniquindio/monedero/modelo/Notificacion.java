@@ -1,4 +1,4 @@
-package main.java.co.edu.uniquindio.monedero.modelo;
+package co.edu.uniquindio.monedero.modelo;
 
 import java.time.LocalDateTime;
 

@@ -1,6 +1,6 @@
-package main.java.co.edu.uniquindio.monedero.modelo.transaccion;
+package co.edu.uniquindio.monedero.modelo.transaccion;
 
-import main.java.co.edu.uniquindio.monedero.modelo.CategoriaGasto;
+import co.edu.uniquindio.monedero.modelo.CategoriaGasto;
 
 public class Deposito extends Transaccion {
     private final String idCuentaDestino;

@@ -1,6 +1,6 @@
-package main.java.co.edu.uniquindio.monedero.modelo.puntos;
+package co.edu.uniquindio.monedero.modelo.puntos;
 
-import main.java.co.edu.uniquindio.monedero.util.Constantes;
+import co.edu.uniquindio.monedero.util.Constantes;
 
 /** Beneficios canjeables por puntos (enunciado). 'valor' = %, días o unidades según el beneficio. */
 public enum Beneficio {

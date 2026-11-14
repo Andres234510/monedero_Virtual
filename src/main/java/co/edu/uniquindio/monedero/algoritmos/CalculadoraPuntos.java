@@ -1,8 +1,8 @@
-package main.java.co.edu.uniquindio.monedero.algoritmos;
+package co.edu.uniquindio.monedero.algoritmos;
 
-import main.java.co.edu.uniquindio.monedero.modelo.puntos.Rango;
-import main.java.co.edu.uniquindio.monedero.modelo.transaccion.TipoTransaccion;
-import main.java.co.edu.uniquindio.monedero.util.Constantes;
+import co.edu.uniquindio.monedero.modelo.puntos.Rango;
+import co.edu.uniquindio.monedero.modelo.transaccion.TipoTransaccion;
+import co.edu.uniquindio.monedero.util.Constantes;
 
 /**
  * Cálculo de puntos, todo en aritmética entera (sin errores de redondeo) y
