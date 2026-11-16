@@ -1,10 +1,9 @@
 package co.edu.uniquindio.monedero.modelo;
 
 import co.edu.uniquindio.monedero.estructuras.listas.ListaEnlazada;
+import co.edu.uniquindio.monedero.excepciones.CuentaNoEncontradaException;
 import co.edu.uniquindio.monedero.estructuras.pilas.Pila;
-import co.edu.uniquindio.monedero.modelo.transaccion.Deposito;
 import co.edu.uniquindio.monedero.modelo.transaccion.Transaccion;
-import co.edu.uniquindio.monedero.modelo.transaccion.Transferencia;
 import co.edu.uniquindio.monedero.util.Constantes;
 import co.edu.uniquindio.monedero.util.GeneradorId;
 
@@ -52,15 +51,22 @@ public class Cuenta {
         reversibles.apilar(t);
     }
 
+    /** Solo al historial: transferencias recibidas y bonos, que no se revierten desde aquí. */
+    public void registrarSoloHistorial(Transaccion t) {
+        historial.agregarAlFinal(t);
+    }
+
+    /** El monedero con ese id, o el principal si no se indica ninguno. */
+    public Monedero monederoOPrincipal(String idMonedero) {
+        if (idMonedero == null || idMonedero.isBlank()) return monederoPrincipal();
+        Monedero m = buscarMonedero(idMonedero);
+        if (m == null) throw new CuentaNoEncontradaException("No existe el monedero " + idMonedero);
+        return m;
+    }
+
     public String getId() { return id; }
     public String getClienteId() { return clienteId; }
     public ListaEnlazada<Monedero> getMonederos() { return monederos; }
     public ListaEnlazada<Transaccion> getHistorial() { return historial; }
     public Pila<Transaccion> getReversibles() { return reversibles; }
-
-    public void registrarSoloHistorial(Deposito t) {
-    }
-
-    public void registrarSoloHistorial(Transferencia t) {
-    }
 }

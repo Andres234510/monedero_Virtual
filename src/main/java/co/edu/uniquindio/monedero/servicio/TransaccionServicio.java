@@ -51,7 +51,7 @@ public class TransaccionServicio {
     public Deposito depositar(String clienteId, String idMonedero, double monto, String descripcion) {
         Cliente c = repo.exigir(clienteId);
         Cuenta cuenta = c.getCuenta();
-        Monedero m = cuenta.monederoPrincipal();
+        Monedero m = cuenta.monederoOPrincipal(idMonedero);
 
         Deposito d = new Deposito(cuenta.getId(), m.getId(), monto, descripcion); // valida el monto
         m.depositar(monto);
@@ -64,7 +64,7 @@ public class TransaccionServicio {
                           CategoriaGasto categoria, String descripcion) {
         Cliente c = repo.exigir(clienteId);
         Cuenta cuenta = c.getCuenta();
-        Monedero m = cuenta.monederoPrincipal();
+        Monedero m = cuenta.monederoOPrincipal(idMonedero);
 
         Retiro r = new Retiro(cuenta.getId(), m.getId(), monto, categoria, descripcion);
         boolean sinCargos = c.beneficioVigente(Beneficio.MES_SIN_CARGOS_RETIRO, hoy()) != null;
@@ -86,9 +86,10 @@ public class TransaccionServicio {
         Cliente destino = repo.exigir(destinoId);
         Cuenta cuentaOrigen = origen.getCuenta();
         Cuenta cuentaDestino = destino.getCuenta();
-        Monedero mo = cuentaOrigen.monederoPrincipal();
-        Monedero md = cuentaDestino.monederoPrincipal();
-        if (mo == md) throw new TransaccionInvalidaException("El origen y el destino son el mismo monedero");
+        Monedero mo = cuentaOrigen.monederoOPrincipal(idMonederoOrigen);
+        Monedero md = cuentaDestino.monederoOPrincipal(idMonederoDestino);
+        if (mo == md) throw new TransaccionInvalidaException(
+                "El origen y el destino son el mismo monedero ('" + mo.getNombre() + "')");
 
         Transferencia t = new Transferencia(cuentaOrigen.getId(), mo.getId(), cuentaDestino.getId(),
                 md.getId(), monto, categoria, descripcion);
@@ -143,15 +144,15 @@ public class TransaccionServicio {
     private void aplicarReversion(Cliente c, Transaccion t) {
         Cuenta cuenta = c.getCuenta();
         if (t instanceof Deposito d) {
-            Monedero m = cuenta.monederoPrincipal();
+            Monedero m = cuenta.monederoOPrincipal(d.getIdMonederoDestino());
             validarSaldo(m, d.getMonto());
             m.retirar(d.getMonto());
         } else if (t instanceof Retiro r) {
-            cuenta.monederoPrincipal().depositar(redondear(r.getMonto() + r.getComision()));
+            cuenta.monederoOPrincipal(r.getIdMonederoOrigen()).depositar(redondear(r.getMonto() + r.getComision()));
         } else if (t instanceof Transferencia tr) {
             Cliente receptor = repo.exigirPorCuenta(tr.getIdCuentaDestino());
-            Monedero md = receptor.getCuenta().monederoPrincipal();
-            Monedero mo = cuenta.monederoPrincipal();
+            Monedero md = receptor.getCuenta().monederoOPrincipal(tr.getIdMonederoDestino());
+            Monedero mo = cuenta.monederoOPrincipal(tr.getIdMonederoOrigen());
             validarSaldo(md, tr.getMonto());
             md.retirar(tr.getMonto());
             mo.depositar(redondear(tr.getMonto() + tr.getComision()));

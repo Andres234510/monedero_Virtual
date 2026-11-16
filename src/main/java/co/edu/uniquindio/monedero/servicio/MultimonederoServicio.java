@@ -36,12 +36,21 @@ public class MultimonederoServicio {
         return repo.exigir(clienteId).getCuenta().getMonederos();
     }
 
-    /** Mueve dinero entre dos monederos del mismo cliente (sin comisión ni puntos). */
+    /**
+     * Mueve dinero entre dos monederos del mismo cliente (sin comisión ni puntos).
+     * Los dos ids son obligatorios: un null no se interpreta como "el Principal"
+     * (en depósitos y retiros sí, aquí no), para no mover dinero al monedero equivocado.
+     */
     public Transferencia transferirEntreMonederos(String clienteId, String idOrigen, String idDestino,
                                                   double monto, String descripcion) {
+        if (vacio(idOrigen) || vacio(idDestino)) {
+            throw new TransaccionInvalidaException("Elige el monedero de origen y el de destino");
+        }
         return transacciones.transferir(clienteId, idOrigen, clienteId, idDestino, monto,
                 CategoriaGasto.OTROS, descripcion);
     }
+
+    private static boolean vacio(String s) { return s == null || s.isBlank(); }
 
     /** Grafo dirigido: vértice = monedero (por nombre), arista = total movido de uno a otro (sin revertidas). */
     public GrafoDirigido<String> grafoMonederos(String clienteId) {

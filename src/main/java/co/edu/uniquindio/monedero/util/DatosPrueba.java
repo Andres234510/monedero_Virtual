@@ -8,7 +8,7 @@ public class DatosPrueba {
 
     public static void cargar(Servicios s) {
         try {
-            s.clientes().registrar("1001", "Cliente Demo", "1234");
+            s.clientes().registrar("1001", "Jeon Jungkook", "1234");
             s.clientes().registrar("1002", "Ana Gómez", "1234");
             s.clientes().registrar("1003", "Luis Pérez", "1234");
 
