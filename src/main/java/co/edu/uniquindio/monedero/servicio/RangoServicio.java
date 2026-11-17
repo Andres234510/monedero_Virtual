@@ -3,20 +3,24 @@ package co.edu.uniquindio.monedero.servicio;
 import co.edu.uniquindio.monedero.algoritmos.ClasificadorRangos;
 import co.edu.uniquindio.monedero.algoritmos.Ordenamiento;
 import co.edu.uniquindio.monedero.estructuras.arboles.ArbolAVL;
+import co.edu.uniquindio.monedero.estructuras.arboles.ArbolBinarioBusqueda;
 import co.edu.uniquindio.monedero.estructuras.listas.ListaEnlazada;
 import co.edu.uniquindio.monedero.modelo.Cliente;
 import co.edu.uniquindio.monedero.modelo.TipoNotificacion;
 import co.edu.uniquindio.monedero.modelo.puntos.ClavePuntos;
 import co.edu.uniquindio.monedero.modelo.puntos.Rango;
+import co.edu.uniquindio.monedero.modelo.puntos.RegistroPuntos;
 import co.edu.uniquindio.monedero.repositorio.ClienteRepositorio;
 
 /**
  * Mantiene un AVL de clientes ordenados por puntos acumulados. Cada cambio de
  * puntos cuesta O(log n) y permite sacar el ranking y los clientes de un rango
- * sin recorrer a todos.
+ * sin recorrer a todos. Además, un árbol binario de búsqueda guarda el registro
+ * de puntos de cada cliente por su documento.
  */
 public class RangoServicio {
     private final ArbolAVL<ClavePuntos, String> arbol = new ArbolAVL<>();
+    private final ArbolBinarioBusqueda<String, RegistroPuntos> puntosPorCliente = new ArbolBinarioBusqueda<>();
     private final ClasificadorRangos clasificador = new ClasificadorRangos();
     private final ClienteRepositorio repo;
     private final NotificacionServicio notificaciones;
@@ -28,6 +32,7 @@ public class RangoServicio {
 
     public void registrar(Cliente c) {
         arbol.insertar(new ClavePuntos(c.getRegistroPuntos().getAcumulados(), c.getId()), c.getId());
+        puntosPorCliente.insertar(c.getId(), c.getRegistroPuntos());
     }
 
     /** Mueve al cliente en el árbol y avisa si cambió de rango. */
@@ -45,6 +50,12 @@ public class RangoServicio {
     }
 
     public Rango rangoDe(long puntos) { return clasificador.clasificar(puntos); }
+
+    /** Puntos acumulados de un cliente, buscándolo por documento en el árbol binario de búsqueda. */
+    public long puntosAcumuladosDe(String clienteId) {
+        RegistroPuntos r = puntosPorCliente.buscar(clienteId);
+        return r == null ? 0 : r.getAcumulados();
+    }
 
     /** Los n clientes con más puntos, de mayor a menor. */
     public ListaEnlazada<Cliente> ranking(int n) {
