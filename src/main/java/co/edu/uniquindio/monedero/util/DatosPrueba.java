@@ -21,6 +21,11 @@ public class DatosPrueba {
 
             s.transacciones().depositar("1002", null, 800000, "Depósito inicial");
             s.transacciones().depositar("1003", null, 6000000, "Depósito grande");
+
+            s.transacciones().retirar("1001", null, 30000, CategoriaGasto.TRANSPORTE, "Taxi");
+            s.transacciones().retirar("1001", null, 20000, CategoriaGasto.ENTRETENIMIENTO, "Cine");
+            s.transacciones().retirar("1001", null, 60000, CategoriaGasto.SERVICIOS, "Internet");
+            s.transacciones().retirar("1001", null, 25000, CategoriaGasto.TRANSPORTE, "Bus");
         } catch (Exception e) {
             System.err.println("Error cargando datos de prueba: " + e.getMessage());
         }
